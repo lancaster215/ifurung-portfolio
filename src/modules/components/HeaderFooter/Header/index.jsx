@@ -117,6 +117,7 @@ export default function Header(){
 				>
 					{headerList.map((list) => 
 						<Stack 
+							key={list}
 							sx={{ 
 								cursor: 'pointer'
 							}}
