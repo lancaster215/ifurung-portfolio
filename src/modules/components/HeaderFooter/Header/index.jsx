@@ -80,7 +80,7 @@ export default function Header(){
 					}}
 				>
 					<Button onClick={toggleDrawer}>
-						<Image src={HumbergerIcon} width={20} height={20} />
+						<Image alt="humberger-icon" src={HumbergerIcon} width={20} height={20} />
 					</Button>
 					<Drawer
 						anchor={'right'}

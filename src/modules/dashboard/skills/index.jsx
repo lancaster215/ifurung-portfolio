@@ -78,6 +78,7 @@ export default function Skills() {
 				>
 					{skills.map((skill, index) => 
 						<Cards 
+							key={skill.skill}
 							sx={{
 								opacity: scrollPosition >= (500 + (index * 90)) ? 1 : 0,
 								transition: 'opacity 1s ease-in-out',

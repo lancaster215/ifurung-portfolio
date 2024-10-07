@@ -51,9 +51,9 @@ export default function AboutMe() {
 					}}
 				>
 					<Typography variant="M3/display" color="grey.gray" mb="20px">
-						Hello, I'm Francis!
+						Hello, I&apos;m Francis!
 						<br/><br/>
-						I'm a software engineer and I started my career way back 2019. I started as a junior frontend developer then I got accepted to a new role as a frontend developer. 
+						I&apos;m a software engineer and I started my career way back 2019. I started as a junior frontend developer then I got accepted to a new role as a frontend developer. 
 						<br/><br/>
 						I have created numerous projects local and international. Over the years, I have honed my skills and now I am software engineer developing one of the biggest insurance app!
 					</Typography>
