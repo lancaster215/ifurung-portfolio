@@ -66,7 +66,7 @@ export default function Projects() {
 					}}
 				>
 					{projects.map((project) => 
-						<SwiperSlide>
+						<SwiperSlide key={project.projectName}>
 							<Cards
 								projectImage={project.projectImage}
 								projectName={project.projectName}

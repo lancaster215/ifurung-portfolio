@@ -39,7 +39,7 @@ export default function Cards(props) {
             p: '10px'
           }}
         >
-          {techStacks.map((stack) => <Typography variant="M3/display" color="grey.gray">{stack}</Typography>)}
+          {techStacks.map((stack) => <Typography key={stack} variant="M3/display" color="grey.gray">{stack}</Typography>)}
         </Stack>
       </Stack>
     )

@@ -25,7 +25,7 @@ export default function Footer() {
 						}}
 					>
 						<Stack direction="row" spacing="10px" alignItems="center">
-							<Image src={Email} width={30} height={30} />
+							<Image alt="email" src={Email} width={30} height={30} />
 							<Typography 
 								variant="M3/label-small"
 								component="a" 
@@ -39,7 +39,7 @@ export default function Footer() {
 							</Typography>
 						</Stack>
 						<Stack direction="row" spacing="10px" alignItems="center">
-							<Image src={LinkedIn} width={20} height={20} style={{ padding: '5px' }}/>
+							<Image alt="linkedin" src={LinkedIn} width={20} height={20} style={{ padding: '5px' }}/>
 							<Typography 
 								variant="M3/label-small" 
 								component="a" 
@@ -52,7 +52,7 @@ export default function Footer() {
 							</Typography>
 						</Stack>
 						<Stack direction="row" spacing="10px" alignItems="center">
-							<Image src={Github} width={20} height={20} style={{ padding: '5px' }}/>
+							<Image alt="github" src={Github} width={20} height={20} style={{ padding: '5px' }}/>
 							<Typography 
 								variant="M3/label-small" 
 								component="a" 
@@ -65,7 +65,7 @@ export default function Footer() {
 							</Typography>
 						</Stack>
 						<Stack direction="row" spacing="10px" alignItems="center">
-							<Image src={Landmark} width={20} height={20} style={{ padding: '5px' }}/>
+							<Image alt="landmark" src={Landmark} width={20} height={20} style={{ padding: '5px' }}/>
 							<Typography 
 								variant="M3/label-small" 
 								component="a" 

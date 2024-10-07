@@ -13,7 +13,7 @@ export default function SplashContent() {
 			>   
 				<Stack>
 					<Typography variant="M3/headline-semibold" color="pink.hotPink" component="p">
-						<Typography variant="M3/headline-semibold" >I'm</Typography>{' '}Francis
+						<Typography variant="M3/headline-semibold" >I&apos;m</Typography>{' '}Francis
 						<Typography variant="M3/headline-semibold" >, a</Typography><br/>
 						{' '}software engineer
 					</Typography>
