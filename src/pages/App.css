@@ -1,0 +1,12 @@
+.mySwiper {
+	display: flex;
+	flex-direction: row;
+}
+
+.mySwiper .swiper-wrapper {
+	display: flex;
+}
+
+.mySwiper .swiper-slide {
+	background: none !important;
+}
