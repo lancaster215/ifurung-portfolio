@@ -9,7 +9,7 @@ import Lexi from './projects/Lexi.png';
 import LinkedIn from './contacts/LinkedIn.svg';
 import Logo from './icons/Logo.svg';
 import MaterialUI from './icons/MaterialUI.svg';
-import NextJS from './icons/NextJS.svg';
+import NextJS from './icons/Nextjs.svg';
 import ProjectOne from './projects/project1.svg';
 import Reactjs from './icons/Reactjs.svg';
 import Redux from './icons/Redux.svg';
