@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 
 export default function SectionHeaders(props) {
-	const { sectionHeaderText } = props
+	const { sectionHeaderText } = props;
 	return (
 		<Stack 
 			direction="row" 
@@ -12,7 +12,7 @@ export default function SectionHeaders(props) {
 		>
 			<Stack 
 				sx={{
-					pt: ['5vh', '10vh'],
+					pt: ['11vh', '10vh'],
 					maxWidth: '100%',
 					width: '100%',
 				}}

@@ -10,3 +10,8 @@
 .mySwiper .swiper-slide {
 	background: none !important;
 }
+
+*:after,
+*:before {
+  box-sizing: border-box;
+}
