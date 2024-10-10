@@ -1,5 +1,4 @@
 import { Stack, Typography } from "@mui/material";
-import CustomButton from "../Button";
 import Image from "next/image";
 import { forwardRef } from "react";
 
@@ -72,6 +71,7 @@ const Cards = forwardRef(
         }}
       >
         <Image 
+          alt={projectImage.src}
           src={projectImage.src}
           width={300}
           height={300}
@@ -106,7 +106,7 @@ const Cards = forwardRef(
           direction='row'
         >
           {projectScope.map((stack) => 
-            <Image key={stack} src={stack} width="auto" height={25} />
+            <Image alt={stack} key={stack} src={stack} width="auto" height={25} />
           )}
         </Stack>
         <Stack
@@ -126,6 +126,8 @@ const Cards = forwardRef(
       </Stack>
     </Stack>
   )
-})
+});
+
+Cards.displayName = "Cards";
 
 export default Cards

@@ -45,7 +45,6 @@ export default function Projects() {
 	return(
 		<Stack id="projects">
 			<SectionHeaders sectionHeaderText={'projects'}/>
-
 				<Stack
 					gap="20px"
 					sx={{
@@ -58,6 +57,7 @@ export default function Projects() {
 				>
 					{projects.map((project) => 
 						<Cards
+							key={project.projectName}
 							projectImage={project.projectImage}
 							projectName={project.projectName}
 							projectDescription={project.projectDescription}
