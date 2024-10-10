@@ -39,9 +39,10 @@ const AnimatedLine = ({ from, to, delay }) => {
 export default function Skills() {
   const [scrollPosition, setScrollPosition] = useState();
   const [hasAnimated, setHasAnimated] = useState(false);
+	const [lines, setLines] = useState([]);
   const boxRefs = useRef([]);
 	const svgRef = useRef(null);
-  const [lines, setLines] = useState([]);
+  const viewportWidth = typeof window !== 'undefined' && window.innerWidth;
 
   const recalculateLines = () => {
     if (boxRefs.current.length === 0 || !svgRef.current) return;
@@ -122,7 +123,7 @@ export default function Skills() {
           direction="row"
           gap="50px"
         >
-					<svg ref={svgRef} style={{ position: 'absolute', height: '100vh', width: '100vw' }}>
+					<svg ref={svgRef} style={{ position: 'absolute', height: viewportWidth <= 480 ? '200vh' : '100vh', width: '100vw' }}>
 						{lines.map((line, index) => (
 							<AnimatedLine 
 								key={index} 
