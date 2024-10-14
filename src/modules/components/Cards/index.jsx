@@ -40,7 +40,7 @@ const Cards = forwardRef(
             p: '10px'
           }}
         >
-          {techStacks.map((stack) => <Typography key={stack} variant="M3/headline-small" fontSize={['16px', '24px']} color="grey.gray">{stack}</Typography>)}
+          {techStacks.map((stack) => <Typography key={stack} variant="M3/headline-small" color="grey.gray" fontSize={['18px', '24px']}>{stack}</Typography>)}
         </Stack>
       </Stack>
     )

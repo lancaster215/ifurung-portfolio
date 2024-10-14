@@ -1,9 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import SectionHeaders from "../../components/Section-Headers";
 import Cards from "../../components/Cards";
-import { useEffect, useRef, useState } from "react";
-import { useSpring, animated } from "@react-spring/web";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSpring, animated, useTransition } from "@react-spring/web";
 import Draggable from "react-draggable";
+import { TypeAnimation } from "react-type-animation";
+import { FiraCode } from "../../../assets/fonts";
 
 const skills = [
   { skill: "Languages", set: ['JavaScript'] },
@@ -39,11 +41,19 @@ const AnimatedLine = ({ from, to, delay }) => {
 export default function Skills() {
   const [scrollPosition, setScrollPosition] = useState();
   const [hasAnimated, setHasAnimated] = useState(false);
-	const [lines, setLines] = useState([]);
+  const [textAnimate, setTextAnimate] = useState(false);
+  const [lines, setLines] = useState([]);
+  const [items, setItems] = useState([])
+  const [isMobile, setIsMobile] = useState(false);
+  
   const boxRefs = useRef([]);
 	const svgRef = useRef(null);
-  const viewportWidth = typeof window !== 'undefined' && window.innerWidth;
+  const ref = useRef([]);
+  const skillsRef = useRef();	
 
+  const skillsRefRectTop = Math.round(Number(skillsRef?.current?.getBoundingClientRect().top));
+  const viewportWidth = typeof window !== 'undefined' && window.innerWidth;
+  
   const recalculateLines = () => {
     if (boxRefs.current.length === 0 || !svgRef.current) return;
 
@@ -67,6 +77,29 @@ export default function Skills() {
     }
     setLines(generatedLines);
   };
+
+  const transitions = useTransition(items, {
+    from: {
+      opacity: 0,
+      height: 0,
+      innerHeight: 0,
+      transform: 'perspective(600px) rotateX(0deg)',
+      color: '#8fa5b6',
+    },
+    enter: [
+      { opacity: 1, height: 80, innerHeight: 80 },
+      { transform: 'perspective(400px) rotateX(180deg)', color: '#28d79f' },
+      { transform: 'perspective(600px) rotateX(0deg)' },
+    ],
+    leave: [{ color: '#c23369' }, { innerHeight: 0 }, { opacity: 0, height: 0 }],
+    update: { color: '#28b4d7' },
+  })
+
+  useEffect(() => {
+		if(skillsRef.current) {
+			localStorage.setItem('skillsRef', skillsRefRectTop);
+		}
+	},[skillsRef, skillsRefRectTop]);
 
   useEffect(() => {
     const animationState = localStorage.getItem('skillsAnimated');
@@ -92,23 +125,126 @@ export default function Skills() {
   }, [scrollPosition]);
 
   useEffect(() => {
-    if (scrollPosition > 1800 && !hasAnimated) {
+    if(skillsRefRectTop > 0 && skillsRefRectTop < 500) {
+      setTextAnimate(true)
+    }
+
+    if (skillsRefRectTop === 0 && !hasAnimated) {
       localStorage.setItem('skillsAnimated', 'true');
       setHasAnimated(true);
     }
 
     // Recalculate lines after cards become visible
     recalculateLines();
-  }, [scrollPosition, hasAnimated, boxRefs.current.length]);
+  }, [skillsRefRectTop, hasAnimated, boxRefs.current.length]);
+
+  useEffect(() => {
+    if(Number(viewportWidth) < 800) {
+      setIsMobile(true);
+    }
+  },[viewportWidth])
 	
+
+  const reset = useCallback(() => {
+    ref.current.forEach(clearTimeout)
+    ref.current = []
+    setItems([])
+    ref.current.push(setTimeout(() => setItems(['Honing', 'character', 'that best suit the market']), 2000))
+    ref.current.push(setTimeout(() => setItems(['Honing', 'skills']), 5000))
+    ref.current.push(setTimeout(() => setItems(['Honing', 'skills', 'that best suit the market']), 5000))
+  },[]);
+  
+  useEffect(() => {
+    if(textAnimate) {
+      reset()
+    }
+    return () => ref.current.forEach(clearTimeout);
+  }, [textAnimate, reset])
 
 	const handleDrag = (index) => (e, data) => {
     recalculateLines();
   };
 
   return (
-    <Stack id="skills">
+    <Stack id="skills" ref={skillsRef}>
       <SectionHeaders sectionHeaderText="skills" />
+      <Stack 
+        sx={{
+          alignItems: ['left', 'center'],
+          my: '10vh',
+          display: 'ruby',
+          textAlignLast: ['left', 'center'],
+          width: '100%'
+        }}
+      >
+        {/* {textAnimate && <Typography component="span" variant="M3/headline-semibold">"</Typography>}
+        {transitions(({ innerHeight, ...style }, item, text, index) => (
+          <animated.div
+            className={{
+              overflow: 'hidden',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignTtems: 'center',
+              fontSize: '4em',
+              fontWeight: 800,
+              willChange: 'transform, opacity, height',
+              whiteSpace: 'nowrap',
+              lineHeight: '80px',
+            }} 
+            style={style}
+          >
+            <animated.div style={{ height: innerHeight, marginRight: index !== 2 && '1pc' }}>
+              <Typography variant="M3/headline-semibold">{item}</Typography>
+            </animated.div>
+          </animated.div>
+        ))}
+        {textAnimate && <Typography component="span" variant="M3/headline-semibold">"</Typography>} */}
+        <TypeAnimation
+          cursor={false}
+          sequence={[
+            'Honing ',
+            1000,
+          ]}
+          speed={50}
+          style={{ 
+            fontWeight: 600,
+            fontSize: '32px',
+            color: '#ffffff',
+            fontFamily: [FiraCode.style.fontFamily, 'sans-serif'].join(',')
+          }}
+        />
+        <TypeAnimation
+          cursor={false}
+          sequence={[
+            'character',
+            1000,
+            'skills',
+            1000,
+          ]}
+          speed={200}
+          style={{ 
+            fontWeight: 600,
+            fontSize: '32px',
+            color: '#C778DD',
+            fontFamily: [FiraCode.style.fontFamily, 'sans-serif'].join(',')
+          }}
+          repeat={Infinity}
+        />
+        <TypeAnimation
+          cursor={false}
+          sequence={[
+            ' that best suit the market',
+            1000,
+          ]}
+          speed={50}
+          style={{ 
+            fontWeight: 600,
+            fontSize: '32px',
+            color: '#ffffff',
+            fontFamily: [FiraCode.style.fontFamily, 'sans-serif'].join(',')
+          }}
+        />
+      </Stack>
       <Stack direction="row" pt="50px">
         <Stack
           sx={{
@@ -123,7 +259,7 @@ export default function Skills() {
           direction="row"
           gap="50px"
         >
-					<svg ref={svgRef} style={{ position: 'absolute', height: viewportWidth <= 480 ? '200vh' : '100vh', width: '100vw' }}>
+					<svg ref={svgRef} style={{ position: 'absolute', height: isMobile ? '130vh' : '100vh', width: isMobile ? '80%' : '100vw' }}>
 						{lines.map((line, index) => (
 							<AnimatedLine 
 								key={index} 
@@ -137,7 +273,6 @@ export default function Skills() {
 						<Draggable
 							key={index}
 							onDrag={handleDrag(index)}
-							// position={null} // Let Draggable handle the position
 						>
 							<Stack>
 								<Cards

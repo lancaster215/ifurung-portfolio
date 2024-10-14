@@ -1,19 +1,27 @@
 import { Stack, Typography } from "@mui/material";
 import SectionHeaders from "../../components/Section-Headers";
-import Image from "next/image";
-import { GradPic, Selfie } from "../../../assets/images";
+import { GradPic } from "../../../assets/images";
 import { useSpring, a} from "@react-spring/web";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function AboutMe() {
   const [flipped, setFlipped] = useState(false);
+	const aboutMeRef = useRef();
+
   const { transform, opacity } = useSpring({
     opacity: flipped ? 1 : 0,
     transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
     config: { mass: 5, tension: 500, friction: 80 },
   })
+
+	useEffect(() => {
+		if(aboutMeRef.current) {
+			localStorage.setItem('aboutMeRef', Math.round(Number(aboutMeRef?.current?.getBoundingClientRect().top)));
+		}
+	},[aboutMeRef])
+
 	return (
-		<Stack id="about-me" pb="50vh">
+		<Stack id="about-me" ref={aboutMeRef} pb="50vh">
 			<SectionHeaders sectionHeaderText="about-me"/>
 			<Stack direction={["column", "row"]} pt={["0px", "50px"]}>
 				<Stack
