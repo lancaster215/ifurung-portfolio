@@ -2,6 +2,8 @@ import { Stack } from "@mui/material";
 import SectionHeaders from "../../components/Section-Headers";
 import Cards from "../../components/Cards";
 import { Flippy, Javascript, Lexi, MaterialUI, NextJS, Reactjs, Redux, RestAPI, Roslib, Singlife, SPP, Wordpress, Xurpas, Zesty } from "../../../assets/images";
+import { useEffect, useRef } from "react";
+
 
 const projects = [
 	{
@@ -42,13 +44,22 @@ const projects = [
 ]
 
 export default function Projects() {
+	const projectRef = useRef();
+
+	useEffect(() => {
+		if(projectRef.current) {
+			localStorage.setItem('projectRef', Math.round(Number(projectRef?.current?.getBoundingClientRect().top)));
+		}
+	},[projectRef])
+
 	return(
-		<Stack id="projects">
+		<Stack id="projects" ref={projectRef}>
 			<SectionHeaders sectionHeaderText={'projects'}/>
 				<Stack
 					gap="20px"
+					spacing="20px"
 					sx={{
-						display: 'flex',
+						display: ['block', 'flex'],
 						flexWrap: 'wrap',
 						flexDirection: 'row',
 						justifyContent: 'space-evenly',
