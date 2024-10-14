@@ -3,29 +3,48 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HumbergerIcon, Logo } from "../../../../assets/images";
 
-const headerList = [
-	{
-		name: 'projects',
-	},
-	{
-		name: 'skills',
-	},
-	{
-		name: 'about-me',
-	},
-	{
-		name: 'contact',
-	}
-]
+
 
 export default function Header(){
 	const [openDrawer, setOpenDrawer] = useState();
 	const [urlId, setUrlId] = useState();
+  const [projectsRect, setProjectsRect] = useState();
+  const [skillsRect, setSkillsRect] = useState();
+  const [aboutMeRect, setAboutMeRect] = useState();
+  const [contactRect, setContactRect] = useState();
+  const [scrollPosition, setScrollPosition] = useState();
+  
+  const headerList = [
+    {
+      name: 'projects',
+      divPosition: Number(projectsRect),
+    },
+    {
+      name: 'skills',
+      divPosition: Number(skillsRect),
+    },
+    {
+      name: 'about-me',
+      divPosition: Number(aboutMeRect),
+    },
+    {
+      name: 'contact',
+      divPosition: Number(contactRect),
+    }
+  ]
 
 	useEffect(() => {
 		const handleScroll = () => {
 			const url = window.location.href;
-			setUrlId(url?.split('#')[1])
+      const urlStr = window.location.toString();
+			setUrlId(url?.split('#')[1]);
+
+      setProjectsRect(localStorage.getItem('projectRef'));
+      setSkillsRect(localStorage.getItem('skillsRef'));
+      setAboutMeRect(localStorage.getItem('aboutMeRef'));
+      setContactRect(localStorage.getItem('contactRef'));
+
+      setScrollPosition(Math.round(Number(window.scrollY)));
 		}
 		typeof window !== 'undefined' && window.addEventListener('scroll', handleScroll)
 		handleScroll();
@@ -108,7 +127,10 @@ export default function Header(){
 								{headerList.map((list) => (
 									<ListItem key={list.name} sx={{py: '3vh', position: 'relative'}}>
 										<Typography component="a" href={`#${list.name}`} variant="M3/display" sx={{ textDecoration: 'none' }}>{capitalize(list.name)}</Typography>
-										{urlId === list.name &&
+										{(urlId === list.name || 
+                      (list.divPosition <= scrollPosition) && 
+                      ((list.divPosition + 500) >= scrollPosition)
+                    ) &&
 											<Stack 
 												sx={{
 													position: 'absolute',
@@ -149,7 +171,10 @@ export default function Header(){
 							<Typography component="a" href={`#${list.name}`} variant="M3/display" sx={{ textDecoration: 'none' }}>
 								<Typography variant="M3/display" component="span" color="pink.hotPink">#</Typography>{list.name}
 							</Typography>
-							{urlId === list.name && 
+							{(urlId === list.name ||
+                (list.divPosition <= scrollPosition) && 
+                ((list.divPosition + 500) >= scrollPosition)
+              ) && 
 								<Stack 
 									sx={{
 										position: 'absolute',

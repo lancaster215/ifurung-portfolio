@@ -55,6 +55,13 @@ const theme = createTheme({
 			color: _var['--common-white'],
 			fontFamily: [FiraCode.style.fontFamily, 'sans-serif'].join(',')
 		},
+		'M3/headline-bold': {
+			fontWeight: 700,
+			fontSize: '44px',
+			lineHeight: 'auto',
+			color: _var['--common-white'],
+			fontFamily: [FiraCode.style.fontFamily, 'sans-serif'].join(',')
+		},
 		'M3/title-medium': {
 			fontWeight: 300,
 			fontSize: '16px',

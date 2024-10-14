@@ -30,7 +30,7 @@ const Cards = forwardRef(
             p: '10px'
           }}
         >
-          <Typography variant="M3/headline-semibold">{skillName}</Typography>
+          <Typography variant="M3/headline-semibold" fontSize={['24px', '32px']}>{skillName}</Typography>
         </Stack>
         <Stack
           direction="column"
@@ -40,7 +40,7 @@ const Cards = forwardRef(
             p: '10px'
           }}
         >
-          {techStacks.map((stack) => <Typography key={stack} variant="M3/headline-small" color="grey.gray">{stack}</Typography>)}
+          {techStacks.map((stack) => <Typography key={stack} variant="M3/headline-small" color="grey.gray" fontSize={['18px', '24px']}>{stack}</Typography>)}
         </Stack>
       </Stack>
     )
@@ -54,7 +54,7 @@ const Cards = forwardRef(
         flexGrow: 1,
         display: 'inline-block',
         height: '40vh',
-        width: '30%',
+        width: ['100%', '30%'],
         position: 'relative',
 
         '&:hover': {
