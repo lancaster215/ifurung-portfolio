@@ -1,8 +1,8 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import SectionHeaders from "../../components/Section-Headers";
 import Cards from "../../components/Cards";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useSpring, animated, useTransition } from "@react-spring/web";
+import { useEffect, useRef, useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
 import Draggable from "react-draggable";
 import { TypeAnimation } from "react-type-animation";
 import { FiraCode } from "../../../assets/fonts";
@@ -41,9 +41,7 @@ const AnimatedLine = ({ from, to, delay }) => {
 export default function Skills() {
   const [scrollPosition, setScrollPosition] = useState();
   const [hasAnimated, setHasAnimated] = useState(false);
-  const [textAnimate, setTextAnimate] = useState(false);
   const [lines, setLines] = useState([]);
-  const [items, setItems] = useState([])
   const [isMobile, setIsMobile] = useState(false);
   
   const boxRefs = useRef([]);
@@ -78,23 +76,6 @@ export default function Skills() {
     setLines(generatedLines);
   };
 
-  const transitions = useTransition(items, {
-    from: {
-      opacity: 0,
-      height: 0,
-      innerHeight: 0,
-      transform: 'perspective(600px) rotateX(0deg)',
-      color: '#8fa5b6',
-    },
-    enter: [
-      { opacity: 1, height: 80, innerHeight: 80 },
-      { transform: 'perspective(400px) rotateX(180deg)', color: '#28d79f' },
-      { transform: 'perspective(600px) rotateX(0deg)' },
-    ],
-    leave: [{ color: '#c23369' }, { innerHeight: 0 }, { opacity: 0, height: 0 }],
-    update: { color: '#28b4d7' },
-  })
-
   useEffect(() => {
 		if(skillsRef.current) {
 			localStorage.setItem('skillsRef', skillsRefRectTop);
@@ -125,10 +106,6 @@ export default function Skills() {
   }, [scrollPosition]);
 
   useEffect(() => {
-    if(skillsRefRectTop > 0 && skillsRefRectTop < 500) {
-      setTextAnimate(true)
-    }
-
     if (skillsRefRectTop === 0 && !hasAnimated) {
       localStorage.setItem('skillsAnimated', 'true');
       setHasAnimated(true);
@@ -144,22 +121,6 @@ export default function Skills() {
     }
   },[viewportWidth])
 	
-
-  const reset = useCallback(() => {
-    ref.current.forEach(clearTimeout)
-    ref.current = []
-    setItems([])
-    ref.current.push(setTimeout(() => setItems(['Honing', 'character', 'that best suit the market']), 2000))
-    ref.current.push(setTimeout(() => setItems(['Honing', 'skills']), 5000))
-    ref.current.push(setTimeout(() => setItems(['Honing', 'skills', 'that best suit the market']), 5000))
-  },[]);
-  
-  useEffect(() => {
-    if(textAnimate) {
-      reset()
-    }
-    return () => ref.current.forEach(clearTimeout);
-  }, [textAnimate, reset])
 
 	const handleDrag = (index) => (e, data) => {
     recalculateLines();
@@ -177,28 +138,6 @@ export default function Skills() {
           width: '100%'
         }}
       >
-        {/* {textAnimate && <Typography component="span" variant="M3/headline-semibold">"</Typography>}
-        {transitions(({ innerHeight, ...style }, item, text, index) => (
-          <animated.div
-            className={{
-              overflow: 'hidden',
-              display: 'flex',
-              justifyContent: 'flex-start',
-              alignTtems: 'center',
-              fontSize: '4em',
-              fontWeight: 800,
-              willChange: 'transform, opacity, height',
-              whiteSpace: 'nowrap',
-              lineHeight: '80px',
-            }} 
-            style={style}
-          >
-            <animated.div style={{ height: innerHeight, marginRight: index !== 2 && '1pc' }}>
-              <Typography variant="M3/headline-semibold">{item}</Typography>
-            </animated.div>
-          </animated.div>
-        ))}
-        {textAnimate && <Typography component="span" variant="M3/headline-semibold">"</Typography>} */}
         <TypeAnimation
           cursor={false}
           sequence={[
@@ -245,7 +184,7 @@ export default function Skills() {
           }}
         />
       </Stack>
-      <Stack direction="row" pt="50px">
+      <Stack direction="row" pt="50px" sx={{position: 'relative'}}>
         <Stack
           sx={{
             maxWidth: '100%',
@@ -253,13 +192,12 @@ export default function Skills() {
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
             flexWrap: 'wrap',
-            flexDirection: ["row", "row-reverse"],
-            position: 'relative',
+            flexDirection: ['row', 'row-reverse'],
           }}
           direction="row"
           gap="50px"
         >
-					<svg ref={svgRef} style={{ position: 'absolute', height: isMobile ? '130vh' : '100vh', width: isMobile ? '80%' : '100vw' }}>
+					<svg ref={svgRef} style={{ position: 'absolute', height: isMobile ? '130vh' : '100vh', width: '80vw' }}>
 						{lines.map((line, index) => (
 							<AnimatedLine 
 								key={index} 
@@ -281,7 +219,6 @@ export default function Skills() {
 									sx={{
 										opacity: scrollPosition >= (1000 + (index * 90)) || hasAnimated ? 1 : 0,
 										transition: 'opacity 2s ease-in-out',
-										backgroundColor: 'grey.backgroundGrey',
 										zIndex: 1,
 									}}
 									isSmallCard={true}
