@@ -20,13 +20,16 @@ const Cards = forwardRef(
       <Stack
         ref={ref}
         sx={{
-          border: `1px solid gray`,
+          background: 'rgba(255, 255, 255, 0.19)',
+          borderRadius: '16px',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+          backdropFilter: 'blur(11.5px)',
+
           ...sx,
         }}
       >
         <Stack
           sx={{
-            border: `1px solid gray`,
             p: '10px'
           }}
         >
@@ -36,7 +39,6 @@ const Cards = forwardRef(
           direction="column"
           spacing={2}
           sx={{
-            border: `1px solid gray`,
             p: '10px'
           }}
         >
@@ -53,76 +55,53 @@ const Cards = forwardRef(
         borderRadius: '10px',
         flexGrow: 1,
         display: 'inline-block',
-        height: ['auto', '40vh'],
-        width: ['100%', '30%'],
+        width: ['100%', 'calc(100% / 4)'],
         position: 'relative',
+        padding: '10px',
 
         '&:hover': {
-          boxShadow: 'rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px',
+          boxShadow: 'rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px',
           transition: 'box-shadow 0.3s ease-in',
           transitionDelay: '0.3s',
         }
       }}
     >
+      <Image 
+        alt={projectImage.src}
+        src={projectImage.src}
+        width={300}
+        height={300}
+        style={{
+          width: '100%',
+          objectFit: 'cover',
+          borderRadius: '10px',
+        }}
+      />
       <Stack
         sx={{
-          borderRadius: '10px',
-          overflow: 'hidden',
+          p: '10px',
+          // backgroundColor: 'rgb(40 44 51 / 44%)',
+          justifyContent: 'space-around',
         }}
+        direction='row'
       >
-        <Image 
-          alt={projectImage.src}
-          src={projectImage.src}
-          width={300}
-          height={300}
-          style={{
-            width: '100%',
-            objectFit: 'cover',
-          }}
-        />
+        {projectScope.map((stack) => 
+          <Image alt={stack} key={stack} src={stack} width="auto" height={25} />
+        )}
       </Stack>
-      <Stack 
+      <Stack
         sx={{
-          pt: '100px',
-          width: '100%',
-          position: 'absolute',
-          bottom: 0,
-          minHeight: ['auto', '20vh'],
+          p: '10px',
+          borderTop: '1px solid white',
+          // backgroundColor: 'grey.backgroundGrey',
+          borderRadius: '0px 0px 10px 10px',
         }}
       >
-        <Stack
-          sx={{
-            p: '10px',
-            borderTop: '1px solid white',
-            backgroundColor: 'rgb(40 44 51 / 44%)',
-            justifyContent: 'space-around',
-
-            '&:hover': {
-              backgroundColor: 'rgb(40 44 51 / 70%)',
-              transition: 'background-color 0.3s ease-in',
-              transitionDelat: '0.3s',
-            }
-          }}
-          direction='row'
-        >
-          {projectScope.map((stack) => 
-            <Image alt={stack} key={stack} src={stack} width="auto" height={25} />
-          )}
+        <Stack direction="row" sx={{justifyContent: 'space-between'}}>
+          <Typography variant="M3/headline-small" sx={{fontSize: ['13px', '24px']}}>{projectName}</Typography>
+          <Typography component="a" target="_blank" href={projectLink} sx={{ textDecoration: 'none' }} color="white">{'~>'}</Typography>
         </Stack>
-        <Stack
-          sx={{
-            p: '10px',
-            borderTop: '1px solid white',
-            backgroundColor: 'grey.backgroundGrey',
-            borderRadius: '0px 0px 10px 10px',
-          }}
-        >
-          <Stack direction="row" sx={{justifyContent: 'space-between'}}>
-            <Typography variant="M3/headline-small" sx={{fontSize: ['13px', '24px']}}>{projectName}</Typography>
-            <Typography component="a" target="_blank" href={projectLink} sx={{ textDecoration: 'none' }} color="white">{'~>'}</Typography>
-          </Stack>
-          <Typography variant="M3/display" sx={{fontSize: ['10px', '16px']}}>{projectDescription}</Typography>
-        </Stack>
+        <Typography variant="M3/display" sx={{fontSize: ['10px', '16px']}}>{projectDescription}</Typography>
       </Stack>
     </Stack>
   )

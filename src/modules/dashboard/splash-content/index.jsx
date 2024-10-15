@@ -83,7 +83,7 @@ export default function SplashContent() {
   }
 
 	return (
-		<Stack mt="100px" direction={['column', 'row', 'row']} pt="20px" pb="20vh">
+		<Stack mt="100px" direction={['column', 'row', 'row']} pt="20px" pb="20vh" sx={{position: 'relative'}}>
 			<svg style={{ position: 'absolute', width: 0, height: 0}}>
         <filter id="goo">
           <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="30" />
@@ -96,7 +96,6 @@ export default function SplashContent() {
 			<Stack
 				component="div"
 				sx={{
-					maxWidth: '100%',
 					width: '100%',
 					position: 'absolute',
 					height: '50vh',
@@ -110,7 +109,6 @@ export default function SplashContent() {
 				{trail.map((props, index) => (
           <animated.div key={index} style={{ transform: props.xy.to(trans) }} />
         ))}
-				
 			</Stack>
 			<Stack
 				sx={{

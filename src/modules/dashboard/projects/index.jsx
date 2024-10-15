@@ -57,7 +57,7 @@ export default function Projects() {
 			<SectionHeaders sectionHeaderText={'projects'}/>
 				<Stack
 					gap="20px"
-					spacing="20px"
+					// spacing="20px"
 					sx={{
 						display: ['block', 'flex'],
 						flexWrap: 'wrap',
